@@ -1,0 +1,4 @@
+Health Check: {"message":"Campus Lost and Found API is running","status":"ok"}
+Get All Items (Public): {"items":null,"meta":{"limit":10,"page":1,"pages":0,"total":0}}
+Search Items (Public): {"items":null,"meta":{"limit":10,"page":1,"pages":0,"total":0}}
+Login User: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwicm9sZSI6InN0dWRlbnQiLCJleHAiOjE3NDY5NzYxODYsImlhdCI6MTc0Njg4OTc4Nn0.2rkp4lfmIb7vBjivoHzxfkQdf_-2-EU971XB936cxb4"}

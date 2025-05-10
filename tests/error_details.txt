@@ -1,0 +1,19 @@
+Get Item Details (Public): {"error":"Item not found"}
+Register New User: {"error":"Username already exists"}
+Get User Profile: {"error":"Unauthorized: Missing or invalid authorization token"}
+Update User Profile: {"error":"Unauthorized: Missing or invalid authorization token"}
+Change Password: {"error":"Unauthorized: Missing or invalid authorization token"}
+Get User Items: {"error":"Unauthorized: Missing or invalid authorization token"}
+Get Unread Message Count: {"error":"Unauthorized: Missing or invalid authorization token"}
+Get Conversations: {"error":"Unauthorized: Missing or invalid authorization token"}
+Report Lost Item: {"error":"Unauthorized: Missing or invalid authorization token"}
+Report Found Item: {"error":"Unauthorized: Missing or invalid authorization token"}
+Update Item Status: {"error":"Unauthorized: Missing or invalid authorization token"}
+Send Message: {"error":"Unauthorized: Missing or invalid authorization token"}
+Get Messages with User: {"error":"Unauthorized: Missing or invalid authorization token"}
+Create Report: {"error":"Unauthorized: Missing or invalid authorization token"}
+Get All Users (Admin): {"error":"Unauthorized: Authentication required"}
+Update User Role (Admin): {"error":"Unauthorized: Authentication required"}
+Get All Reports (Admin): {"error":"Unauthorized: Authentication required"}
+Update Report Status (Admin): {"error":"Unauthorized: Authentication required"}
+Get Stats (Admin): {"error":"Unauthorized: Authentication required"}

@@ -1,0 +1,231 @@
+# Campus Lost and Found API - cURL Test Commands
+# These are individual curl commands you can copy and run manually for testing
+
+# Set your base URL
+BASE_URL="http://localhost:3000"
+
+# Health Check
+curl -X GET "${BASE_URL}/health"
+
+# ==================== PUBLIC ENDPOINTS ====================
+
+# Get all items
+curl -X GET "${BASE_URL}/api/v1/items"
+
+# Search for items
+curl -X GET "${BASE_URL}/api/v1/items/search?q=phone"
+
+# Get item details
+curl -X GET "${BASE_URL}/api/v1/items/1"
+
+# ==================== AUTHENTICATION ====================
+
+# Register a new user
+curl -X POST \
+  "${BASE_URL}/" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "testuser",
+    "email": "test@example.com",
+    "password": "password123",
+    "first_name": "Test",
+    "last_name": "User",    
+    "phone": "1234567890"
+  }'
+
+# Register an admin user
+curl -X POST \
+  "${BASE_URL}/api/v1/auth/register" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "admin",
+    "email": "admin@example.com",
+    "password": "admin123",
+    "first_name": "Admin",
+    "last_name": "User",
+    "phone": "9876543210"
+  }'
+
+# Login to get token
+curl -X POST \
+  "${BASE_URL}/api/v1/auth/login" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "testuser",
+    "password": "password123"
+  }'
+
+# Login as admin to get token
+curl -X POST \
+  "${BASE_URL}/api/v1/auth/login" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "admin",
+    "password": "admin123"
+  }'
+
+# ==================== USER ENDPOINTS (Replace TOKEN with your actual token) ====================
+
+# Get user profile
+curl -X GET \
+  "${BASE_URL}/api/v1/user/profile" \
+  -H "Authorization: Bearer TOKEN"
+
+# Update user profile
+curl -X PUT \
+  "${BASE_URL}/api/v1/user/profile" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer TOKEN" \
+  -d '{
+    "first_name": "Updated",
+    "last_name": "User",
+    "email": "test@example.com",
+    "phone": "1234567890"
+  }'
+
+# Change password
+curl -X PUT \
+  "${BASE_URL}/api/v1/user/password" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer TOKEN" \
+  -d '{
+    "current_password": "password123",
+    "new_password": "newpassword123"
+  }'
+
+# Get user items
+curl -X GET \
+  "${BASE_URL}/api/v1/user/items" \
+  -H "Authorization: Bearer TOKEN"
+
+# Get unread message count
+curl -X GET \
+  "${BASE_URL}/api/v1/user/messages/unread" \
+  -H "Authorization: Bearer TOKEN"
+
+# Get conversations
+curl -X GET \
+  "${BASE_URL}/api/v1/user/messages/conversations" \
+  -H "Authorization: Bearer TOKEN"
+
+# Get messages with specific user
+curl -X GET \
+  "${BASE_URL}/api/v1/user/messages/2" \
+  -H "Authorization: Bearer TOKEN"
+
+# Send a message
+curl -X POST \
+  "${BASE_URL}/api/v1/user/messages" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer TOKEN" \
+  -d '{
+    "receiver_id": 2,
+    "item_id": 1,
+    "content": "Hi, I think I found your lost item"
+  }'
+
+# Create a report
+curl -X POST \
+  "${BASE_URL}/api/v1/user/reports" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer TOKEN" \
+  -d '{
+    "reported_id": 2,
+    "reason": "Suspicious behavior"
+  }'
+
+# ==================== ITEM ENDPOINTS (Replace TOKEN with your actual token) ====================
+
+# Report lost item
+curl -X POST \
+  "${BASE_URL}/api/v1/items/lost" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer TOKEN" \
+  -d '{
+    "title": "Lost Laptop",
+    "description": "MacBook Pro 16-inch",
+    "category": "Electronics",
+    "location": "Library",
+    "lost_time": "2023-05-10T15:00:00Z"
+  }'
+
+# Report found item
+curl -X POST \
+  "${BASE_URL}/api/v1/items/found" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer TOKEN" \
+  -d '{
+    "title": "Found Phone",
+    "description": "iPhone 13 Pro",
+    "category": "Electronics",
+    "location": "Cafeteria"
+  }'
+
+# Update item status
+curl -X PUT \
+  "${BASE_URL}/api/v1/items/1/status" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer TOKEN" \
+  -d '{
+    "status": "claimed"
+  }'
+
+# Upload item image (requires a file)
+curl -X POST \
+  "${BASE_URL}/api/v1/items/1/image" \
+  -H "Authorization: Bearer TOKEN" \
+  -F "image=@/path/to/your/image.jpg"
+
+# ==================== ADMIN ENDPOINTS (Replace ADMIN_TOKEN with actual admin token) ====================
+# Note: These endpoints require admin role
+
+# Get all users
+curl -X GET \
+  "${BASE_URL}/api/v1/admin/users" \
+  -H "Authorization: Bearer ADMIN_TOKEN"
+
+# Update user role
+curl -X PUT \
+  "${BASE_URL}/api/v1/admin/users/2/role" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer ADMIN_TOKEN" \
+  -d '{
+    "role": "guard"
+  }'
+
+# Get all reports
+curl -X GET \
+  "${BASE_URL}/api/v1/admin/reports" \
+  -H "Authorization: Bearer ADMIN_TOKEN"
+
+# Update report status
+curl -X PUT \
+  "${BASE_URL}/api/v1/admin/reports/1/status" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer ADMIN_TOKEN" \
+  -d '{
+    "status": "resolved",
+    "comment": "No issues found"
+  }'
+
+# Get system stats
+curl -X GET \
+  "${BASE_URL}/api/v1/admin/stats" \
+  -H "Authorization: Bearer ADMIN_TOKEN"
+
+# ==================== GUARD ENDPOINTS (Replace GUARD_TOKEN with guard user token) ====================
+# Note: These endpoints require guard or admin role
+
+# Get all items (guard view)
+curl -X GET \
+  "${BASE_URL}/api/v1/guard/items" \
+  -H "Authorization: Bearer GUARD_TOKEN"
+
+# ==================== HELPER FUNCTIONS ====================
+
+# To extract token from login response:
+# TOKEN=$(curl -s -X POST "${BASE_URL}/api/v1/auth/login" -H "Content-Type: application/json" -d '{"username":"testuser","password":"password123"}' | grep -o '"token":"[^"]*' | cut -d'"' -f4)
+# echo $TOKEN
+
+# After getting the token, you can use:
+# curl -H "Authorization: Bearer $TOKEN" "${BASE_URL}/api/v1/user/profile"
