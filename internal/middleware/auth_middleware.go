@@ -7,20 +7,16 @@ import (
 	"github.com/omniflare/campus-lostandfound/internal/utils/jwt"
 )
 
-// Auth middleware to validate JWT tokens
 func Auth() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		// Get the Authorization header
 		authHeader := c.Get("Authorization")
 
-		// Check if the header is empty or doesn't contain "Bearer "
 		if authHeader == "" || !strings.HasPrefix(authHeader, "Bearer ") {
 			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
 				"error": "Unauthorized: Missing or invalid authorization token",
 			})
 		}
 
-		// Extract the token
 		tokenString := strings.TrimPrefix(authHeader, "Bearer ")
 
 		// Validate the token
