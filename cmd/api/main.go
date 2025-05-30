@@ -59,6 +59,8 @@ func main() {
 	// Serve static files from uploads directory
 	app.Static("/uploads", "./uploads")
 
+	//dont know the shint I am doing here
+
 	// Setup routes
 	routes.SetupRoutes(app)
 
